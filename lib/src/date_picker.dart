@@ -1,27 +1,26 @@
 import 'package:flutter/material.dart';
-import 'package:scroll_date_picker/scroll_date_picker.dart';
-import 'package:scroll_date_picker/src/widgets/date_scroll_view.dart';
+import 'package:date_picker/date_picker.dart';
+import 'package:date_picker/src/widgets/date_scroll_view.dart';
 
 import 'utils/get_monthly_date.dart';
 
-class ScrollDatePicker extends StatefulWidget {
-  ScrollDatePicker({
+class DLDatePicker extends StatefulWidget {
+  DLDatePicker({
     Key? key,
     required this.selectedDate,
     DateTime? minimumDate,
     DateTime? maximumDate,
     required this.onDateTimeChanged,
     Locale? locale,
-    DatePickerOptions? options,
-    DatePickerScrollViewOptions? scrollViewOptions,
-    this.indicator,
+    DLDatePickerOptions? options,
+    DLDatePickerScrollViewOptions? scrollViewOptions,
     this.viewType,
-  })  : minimumDate = minimumDate ?? DateTime(1960, 1, 1),
+  })  : minimumDate = minimumDate ?? DateTime(1900, 1, 1),
         maximumDate = maximumDate ?? DateTime.now(),
-        locale = locale ?? const Locale('en'),
-        options = options ?? const DatePickerOptions(),
+        locale = locale ?? const Locale('zh'),
+        options = options ?? const DLDatePickerOptions(),
         scrollViewOptions =
-            scrollViewOptions ?? const DatePickerScrollViewOptions(),
+            scrollViewOptions ?? const DLDatePickerScrollViewOptions(),
         super(key: key);
 
   /// A list that allows you to specify the type of date view.
@@ -43,22 +42,19 @@ class ScrollDatePicker extends StatefulWidget {
   final ValueChanged<DateTime> onDateTimeChanged;
 
   /// A set that allows you to specify options related to ListWheelScrollView.
-  final DatePickerOptions options;
+  final DLDatePickerOptions options;
 
   /// Set calendar language
   final Locale locale;
 
   /// A set that allows you to specify options related to ScrollView.
-  final DatePickerScrollViewOptions scrollViewOptions;
-
-  /// Indicator displayed in the center of the ScrollDatePicker
-  final Widget? indicator;
+  final DLDatePickerScrollViewOptions scrollViewOptions;
 
   @override
-  State<ScrollDatePicker> createState() => _ScrollDatePickerState();
+  State<DLDatePicker> createState() => _DLDatePickerState();
 }
 
-class _ScrollDatePickerState extends State<ScrollDatePicker> {
+class _DLDatePickerState extends State<DLDatePicker> {
   /// This widget's year selection and animation state.
   late FixedExtentScrollController _yearController;
 
@@ -118,7 +114,7 @@ class _ScrollDatePickerState extends State<ScrollDatePicker> {
   }
 
   @override
-  void didUpdateWidget(covariant ScrollDatePicker oldWidget) {
+  void didUpdateWidget(covariant DLDatePicker oldWidget) {
     super.didUpdateWidget(oldWidget);
     if (_selectedDate != widget.selectedDate) {
       _selectedDate = widget.selectedDate;
@@ -144,7 +140,7 @@ class _ScrollDatePickerState extends State<ScrollDatePicker> {
   }
 
   void _initDateScrollView() {
-    _yearScrollView = DateScrollView(
+    _yearScrollView = DLDateScrollView(
         key: const Key("year"),
         dates: _years,
         controller: _yearController,
@@ -163,7 +159,7 @@ class _ScrollDatePickerState extends State<ScrollDatePicker> {
           }
           isYearScrollable = true;
         });
-    _monthScrollView = DateScrollView(
+    _monthScrollView = DLDateScrollView(
       key: const Key("month"),
       dates: widget.locale.months.sublist(_months.first - 1, _months.last),
       controller: _monthController,
@@ -181,7 +177,7 @@ class _ScrollDatePickerState extends State<ScrollDatePicker> {
         isMonthScrollable = true;
       },
     );
-    _dayScrollView = DateScrollView(
+    _dayScrollView = DLDateScrollView(
       key: const Key("day"),
       dates: _days,
       controller: _dayController,
@@ -261,23 +257,7 @@ class _ScrollDatePickerState extends State<ScrollDatePicker> {
       return viewList;
     }
 
-    switch (widget.locale.languageCode) {
-      case zh:
-      case ko:
-        return [_yearScrollView, _monthScrollView, _dayScrollView];
-      case vi:
-      case id:
-      case th:
-      case de:
-      case es:
-      case nl:
-      case fr:
-      case it:
-      case pt:
-        return [_dayScrollView, _monthScrollView, _yearScrollView];
-      default:
-        return [_monthScrollView, _dayScrollView, _yearScrollView];
-    }
+    return [_yearScrollView, _monthScrollView, _dayScrollView];
   }
 
   @override
@@ -285,11 +265,6 @@ class _ScrollDatePickerState extends State<ScrollDatePicker> {
     return Stack(
       alignment: Alignment.center,
       children: [
-        Row(
-          mainAxisAlignment: widget.scrollViewOptions.mainAxisAlignment,
-          crossAxisAlignment: widget.scrollViewOptions.crossAxisAlignment,
-          children: _getScrollDatePicker(),
-        ),
         // Date Picker Indicator
         IgnorePointer(
           child: Column(
@@ -297,42 +272,26 @@ class _ScrollDatePickerState extends State<ScrollDatePicker> {
             children: [
               Expanded(
                 child: Container(
-                  decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                      begin: Alignment.topCenter,
-                      end: Alignment.bottomCenter,
-                      colors: [
-                        widget.options.backgroundColor,
-                        widget.options.backgroundColor.withOpacity(0.7),
-                      ],
-                    ),
-                  ),
+                  color: widget.options.backgroundColor ?? Colors.white,
                 ),
               ),
-              widget.indicator ??
-                  Container(
-                    height: widget.options.itemExtent,
-                    decoration: BoxDecoration(
-                      color: Colors.grey.withOpacity(0.15),
-                      borderRadius: const BorderRadius.all(Radius.circular(4)),
-                    ),
-                  ),
+              Container(
+                height: widget.options.itemExtent,
+                color: widget.options.indicatorBackgroundColor ??
+                    Colors.grey.withOpacity(0.4),
+              ),
               Expanded(
                 child: Container(
-                  decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                      begin: Alignment.topCenter,
-                      end: Alignment.bottomCenter,
-                      colors: [
-                        widget.options.backgroundColor.withOpacity(0.7),
-                        widget.options.backgroundColor,
-                      ],
-                    ),
-                  ),
+                  color: widget.options.backgroundColor ?? Colors.white,
                 ),
               ),
             ],
           ),
+        ),
+        Row(
+          mainAxisAlignment: widget.scrollViewOptions.mainAxisAlignment,
+          crossAxisAlignment: widget.scrollViewOptions.crossAxisAlignment,
+          children: _getScrollDatePicker(),
         ),
       ],
     );
