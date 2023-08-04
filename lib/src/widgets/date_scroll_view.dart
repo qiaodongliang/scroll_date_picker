@@ -1,9 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:scroll_date_picker/scroll_date_picker.dart';
+import 'package:date_picker/date_picker.dart';
 
-class DateScrollView extends StatelessWidget {
-  const DateScrollView({
+class DLDateScrollView extends StatelessWidget {
+  const DLDateScrollView({
     Key? key,
     required this.onChanged,
     required this.dates,
@@ -26,10 +26,10 @@ class DateScrollView extends StatelessWidget {
   final List dates;
 
   /// A set that allows you to specify options related to ListWheelScrollView.
-  final DatePickerOptions options;
+  final DLDatePickerOptions options;
 
   /// A set that allows you to specify options related to ScrollView.
-  final ScrollViewDetailOptions scrollViewOptions;
+  final DLScrollViewDetailOptions scrollViewOptions;
 
   /// The currently selected date index.
   final int selectedIndex;
@@ -58,9 +58,7 @@ class DateScrollView extends StatelessWidget {
       textDirection: Directionality.of(context),
     );
     _painter.layout();
-    return locale.languageCode == ar
-        ? _painter.size.width + 40.0
-        : _painter.size.width + 8.0;
+    return _painter.size.width + 8.0;
   }
 
   @override
@@ -78,7 +76,7 @@ class DateScrollView extends StatelessWidget {
             physics: const FixedExtentScrollPhysics(),
             perspective: options.perspective,
             onSelectedItemChanged: onChanged,
-            childDelegate: options.isLoop && dates.length > _maximumCount
+            childDelegate: options.loop && dates.length > _maximumCount
                 ? ListWheelChildLoopingListDelegate(
                     children: List<Widget>.generate(
                       dates.length,
