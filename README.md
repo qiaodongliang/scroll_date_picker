@@ -37,7 +37,7 @@ import 'package:date_picker/date_picker.dart';
 ## Complete example
 ```dart
 import 'package:flutter/material.dart';
-import 'package:scroll_date_picker/scroll_date_picker.dart';
+import 'package:date_picker/date_picker.dart';
 
 void main() {
   runApp(MaterialApp(home: const MyApp()));
@@ -63,11 +63,11 @@ class _MyAppState extends State<MyApp> {
       body: Column(
         children: [
           Container(
-            height: 100.0,
+            height: 100,
             alignment: Alignment.center,
             child: Text(
               "$_selectedDate",
-              style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.w500),
+              style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
             ),
           ),
           Container(
@@ -87,9 +87,17 @@ class _MyAppState extends State<MyApp> {
           ),
           SizedBox(
             height: 250,
-            child: ScrollDatePicker(
+            child: DLDatePicker(
+              options: DLDatePickerOptions(
+                loop: false,
+              ),
               selectedDate: _selectedDate,
-              locale: Locale('en'),
+              scrollViewOptions: DLDatePickerScrollViewOptions(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                year: DLScrollViewDetailOptions(label: '年'),
+                month: DLScrollViewDetailOptions(label: '月'),
+                day: DLScrollViewDetailOptions(label: '日'),
+              ),
               onDateTimeChanged: (DateTime value) {
                 setState(() {
                   _selectedDate = value;
@@ -97,37 +105,12 @@ class _MyAppState extends State<MyApp> {
               },
             ),
           ),
-          /// Showcase second image source
-      // SizedBox(
-          //   height: 250,
-          //   child: ScrollDatePicker(
-          //     selectedDate: _selectedDate,
-          //     locale: Locale('ko'),
-          //     scrollViewOptions: DatePickerScrollViewOptions(
-          //       year: ScrollViewDetailOptions(
-          //         label: '년',
-          //         margin: const EdgeInsets.only(right: 8),
-          //       ),
-          //       month: ScrollViewDetailOptions(
-          //         label: '월',
-          //         margin: const EdgeInsets.only(right: 8),
-          //       ),
-          //       day: ScrollViewDetailOptions(
-          //         label: '일',
-          //       )
-          //     ),
-          //     onDateTimeChanged: (DateTime value) {
-          //       setState(() {
-          //         _selectedDate = value;
-          //       });
-          //     },
-          //   ),
-          // ),
         ],
       ),
     );
   }
 }
+
 ```
 
 
