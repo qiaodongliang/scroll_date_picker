@@ -1,4 +1,4 @@
-# Scroll Date Picker
+# Date Picker
 
 A customizable and easy-to-use date picker library for Flutter. 
 
