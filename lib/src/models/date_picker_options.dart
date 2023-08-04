@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 
-class DatePickerOptions {
-  const DatePickerOptions({
-    this.itemExtent = 30.0,
+class DLDatePickerOptions {
+  const DLDatePickerOptions({
+    this.itemExtent = 40.0,
     this.diameterRatio = 3,
     this.perspective = 0.01,
-    this.isLoop = true,
-    this.backgroundColor = Colors.white,
+    this.loop = true,
+    this.backgroundColor,
+    this.indicatorBackgroundColor,
   });
 
   /// Size of each child in the main axis
@@ -19,8 +20,11 @@ class DatePickerOptions {
   final double perspective;
 
   /// The loop iterates on an explicit list of values
-  final bool isLoop;
+  final bool loop;
 
   /// The color to paint behind the date picker
-  final Color backgroundColor;
+  final Color? backgroundColor;
+
+  /// The color to paint selectedBackground the date picker
+  final Color? indicatorBackgroundColor;
 }
