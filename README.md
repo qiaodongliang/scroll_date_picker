@@ -21,7 +21,7 @@ In the pubspec.yaml of your flutter project, add the following dependency:
 
 ```yaml
 dependencies:
-  scroll_date_picker : "^lastest_version"
+  date_picker : "^lastest_version"
 ```
 
 <br>
@@ -29,7 +29,7 @@ dependencies:
 ## Usage
 Need to include the import the package to the dart file where it will be used, refer the below command
 ```dart
-import 'package:scroll_date_picker/scroll_date_picker.dart';
+import 'package:date_picker/date_picker.dart';
 ```
 
 <br>
