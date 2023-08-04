@@ -1,23 +1,23 @@
 import 'package:flutter/material.dart';
 
-class DatePickerScrollViewOptions {
-  const DatePickerScrollViewOptions({
-    this.year = const ScrollViewDetailOptions(margin: EdgeInsets.all(4)),
-    this.month = const ScrollViewDetailOptions(margin: EdgeInsets.all(4)),
-    this.day = const ScrollViewDetailOptions(margin: EdgeInsets.all(4)),
+class DLDatePickerScrollViewOptions {
+  const DLDatePickerScrollViewOptions({
+    this.year = const DLScrollViewDetailOptions(margin: EdgeInsets.all(4)),
+    this.month = const DLScrollViewDetailOptions(margin: EdgeInsets.all(4)),
+    this.day = const DLScrollViewDetailOptions(margin: EdgeInsets.all(4)),
     this.mainAxisAlignment = MainAxisAlignment.center,
     this.crossAxisAlignment = CrossAxisAlignment.center,
   });
 
-  final ScrollViewDetailOptions year;
-  final ScrollViewDetailOptions month;
-  final ScrollViewDetailOptions day;
+  final DLScrollViewDetailOptions year;
+  final DLScrollViewDetailOptions month;
+  final DLScrollViewDetailOptions day;
   final MainAxisAlignment mainAxisAlignment;
   final CrossAxisAlignment crossAxisAlignment;
 
-  // Applies the given [ScrollViewDetailOptions] to all three options ie. year, month and day.
-  static DatePickerScrollViewOptions all(ScrollViewDetailOptions value) {
-    return DatePickerScrollViewOptions(
+  // Applies the given [DLScrollViewDetailOptions] to all three options ie. year, month and day.
+  static DLDatePickerScrollViewOptions all(DLScrollViewDetailOptions value) {
+    return DLDatePickerScrollViewOptions(
       year: value,
       month: value,
       day: value,
@@ -25,13 +25,13 @@ class DatePickerScrollViewOptions {
   }
 }
 
-class ScrollViewDetailOptions {
-  const ScrollViewDetailOptions({
+class DLScrollViewDetailOptions {
+  const DLScrollViewDetailOptions({
     this.label = '',
-    this.alignment = Alignment.centerLeft,
+    this.alignment = Alignment.center,
     this.margin,
     this.selectedTextStyle =
-        const TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+        const TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
     this.textStyle =
         const TextStyle(fontSize: 14, fontWeight: FontWeight.normal),
   });
