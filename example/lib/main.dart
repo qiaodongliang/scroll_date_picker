@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:scroll_date_picker/scroll_date_picker.dart';
+import 'package:date_picker/date_picker.dart';
 
 void main() {
   runApp(MaterialApp(home: const MyApp()));
@@ -49,9 +49,17 @@ class _MyAppState extends State<MyApp> {
           ),
           SizedBox(
             height: 250,
-            child: ScrollDatePicker(
+            child: DLDatePicker(
+              options: DLDatePickerOptions(
+                loop: false,
+              ),
               selectedDate: _selectedDate,
-              locale: Locale('en'),
+              scrollViewOptions: DLDatePickerScrollViewOptions(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                year: DLScrollViewDetailOptions(label: '年'),
+                month: DLScrollViewDetailOptions(label: '月'),
+                day: DLScrollViewDetailOptions(label: '日'),
+              ),
               onDateTimeChanged: (DateTime value) {
                 setState(() {
                   _selectedDate = value;
